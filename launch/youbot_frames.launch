@@ -1,0 +1,15 @@
+<launch>
+  <arg name="camera" default="camera" />
+  <arg name="tf_prefix" default="" />
+
+  <arg name="pi/2" value="1.5707963267948966" />
+  <arg name="optical_rotate" value="0 0 0 -$(arg pi/2) 0 -$(arg pi/2)" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="footprint_base_link"
+    args="0 0 0.07 0 0 0 base_footprint base_link" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_camera_link"
+    args="0.285 0 0.035 0 0 0 base_link $(arg tf_prefix)/$(arg camera)_link" />
+</launch>
+
+<!-- TODO Could instead store these in camera_pose_calibration format for consistency
+     with user calibrations. Blocked on camera_pose_calibration having sane dependencies. -->
