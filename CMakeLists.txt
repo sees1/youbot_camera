@@ -9,14 +9,17 @@ project(youbot_camera)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  tf
+  tf2_kdl
   tf2
   tf2_geometry_msgs
   tf2_ros
-  message_generation
   std_msgs
   nav_msgs
   geometry_msgs
   rviz
+  youbot_driver
+  rtabmap_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -74,12 +77,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-  nav_msgs
-  geometry_msgs
-)
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs
+#   nav_msgs
+#   geometry_msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -112,9 +115,9 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 
 catkin_package(
-  INCLUDE_DIRS include/youbot_camera
+  INCLUDE_DIRS include include/youbot_camera
   LIBRARIES 
-  CATKIN_DEPENDS nav_msgs std_msgs geometry_msgs roscpp tf2 tf2_geometry_msgs tf2_ros message_runtime
+  CATKIN_DEPENDS nav_msgs std_msgs geometry_msgs roscpp tf tf2_kdl tf2 tf2_geometry_msgs tf2_ros youbot_driver rtabmap_ros
   DEPENDS
 )
 
@@ -125,6 +128,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
+  include
   include/youbot_camera
   ${catkin_INCLUDE_DIRS}
 )
