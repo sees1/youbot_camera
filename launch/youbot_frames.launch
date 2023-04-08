@@ -7,6 +7,8 @@
   <arg name="pi/2" value="1.5707963267948966" />
   <arg name="optical_rotate" value="0 0 0 -$(arg pi/2) 0 -$(arg pi/2)" />
 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom"
+    args="0.5 0.5 0 0 0 0 map odom" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="footprint_base_link"
     args="0 0 0.07 0 0 0 base_footprint base_link" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_camera_link"
