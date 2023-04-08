@@ -1,18 +1,17 @@
 <?xml version="1.0"?>
 
 <launch>
-   <!-- <rosparam param="use_sim_time">true</rosparam>
-   <arg name="camera" value="camera" />
+   <!-- <rosparam param="use_sim_time">true</rosparam> -->
+
+   <!-- <arg name="camera" value="camera" />
    <include file="$(find youbot_camera)/launch/youbot_frames.launch">
       <arg name="camera" value="$(arg camera)"/>
    </include>
 
    <include file="$(find openni2_launch)/launch/openni2.launch">
       <arg name="depth_registration" value="true" />
-   </include>
+   </include> -->
 
- 
-  <rosparam param="wait_for_seconds">5</rosparam> -->
   <!-- Backward compatibility launch file, use rtabmap.launch instead -->
 
   <!-- Your RGB-D sensor should be already started with "depth_registration:=true".
@@ -25,7 +24,7 @@
   <arg name="rtabmapviz"              default="false" />
 
   <!-- Localization-only mode -->
-  <arg name="localization"            default="true"/>
+  <arg name="localization"            default="false"/>
 
   <!-- Corresponding config files -->
   <arg name="rtabmapviz_cfg"          default="~/.ros/rtabmap_gui.ini" />
@@ -43,25 +42,25 @@
   <arg name="compressed"              default="false"/>
 
   <arg name="subscribe_scan"          default="false"/>         <!-- Assuming 2D scan if set, rtabmap will do 3DoF mapping instead of 6DoF -->
-  <arg name="scan_topic"              default="/camera/depth/points"/>
+  <arg name="scan_topic"              default="points"/>
 
   <arg name="subscribe_scan_cloud"    default="true"/>         <!-- Assuming 3D scan if set -->
   <arg name="scan_cloud_topic"        default="/camera/depth/points"/>
 
   <arg name="visual_odometry"         default="true"/>          <!-- Generate visual odometry -->
   <arg name="odom_topic"              default="/odom"/>         <!-- Odometry topic used if visual_odometry is false -->
-  <arg name="odom_frame_id"           default=""/>              <!-- If set, TF is used to get odometry instead of the topic -->
+  <arg name="odom_frame_id"           default="odom"/>              <!-- If set, TF is used to get odometry instead of the topic -->
 
   <arg name="namespace"               default="rtabmap"/>
-  <arg name="wait_for_transform"      default="0.3"/>
+  <arg name="wait_for_transform"      default="1"/>
 
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
-    <!-- <rosparam param="use_sim_time">true</rosparam>
+    <!-- <rosparam param="use_sim_time">true</rosparam> -->
     <rosparam param="map_always_update">true</rosparam>
-    <rosparam param="map_cleanup">true</rosparam> -->
+    <rosparam param="map_cleanup">true</rosparam>
 
-    <!-- <param name="Grid/Sensor"           value="1"/>
-    <param name="Odom/Strategy"         type="int"    value="2"/> -->
+    <!-- <param name="Grid/Sensor"           type="string"    value="0"/> -->
+    <!-- <param name="Odom/Strategy"         type="int"    value="2"/> -->
 
     <arg name="stereo"                  value="false"/>
     <param name="publish_tf"            value="false"/>
@@ -96,11 +95,8 @@
     <arg name="odom_frame_id"           value="$(arg odom_frame_id)"/>
     <arg name="odom_args"               value="$(arg args)"/>
   </include>
-<!-- 
 
-  <rosparam param="wait_for_second">5</rosparam>
-
-  <include file="$(find youbot_navigation_global)/launch/move_base_global.launch" /> -->
+  <include file="$(find youbot_navigation_global)/launch/move_base_global.launch" />
 
 
 </launch>
