@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
-   
-   <!-- Enable camera and tf link-->
+   <!-- <rosparam param="use_sim_time">true</rosparam>
    <arg name="camera" value="camera" />
    <include file="$(find youbot_camera)/launch/youbot_frames.launch">
       <arg name="camera" value="$(arg camera)"/>
@@ -13,7 +12,7 @@
    </include>
 
  
-  
+  <rosparam param="wait_for_seconds">5</rosparam> -->
   <!-- Backward compatibility launch file, use rtabmap.launch instead -->
 
   <!-- Your RGB-D sensor should be already started with "depth_registration:=true".
@@ -26,7 +25,7 @@
   <arg name="rtabmapviz"              default="false" />
 
   <!-- Localization-only mode -->
-  <arg name="localization"            default="false"/>
+  <arg name="localization"            default="true"/>
 
   <!-- Corresponding config files -->
   <arg name="rtabmapviz_cfg"          default="~/.ros/rtabmap_gui.ini" />
@@ -34,7 +33,7 @@
 
   <arg name="frame_id"                default="base_footprint"/>   <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
   <arg name="database_path"           default="~/.ros/rtabmap.db"/>
-  <arg name="rtabmap_args"            default="delete_db_on_start"/>              <!-- delete_db_on_start, udebug -->
+  <arg name="args"                    default="--delete_db_on_start"/>              <!-- delete_db_on_start, udebug -->
   <arg name="launch_prefix"           default=""/>              <!-- for debugging purpose, it fills launch-prefix tag of the nodes -->
   <arg name="approx_sync"             default="true"/>         <!-- if timestamps of the input topics are not synchronized -->
 
@@ -44,19 +43,29 @@
   <arg name="compressed"              default="false"/>
 
   <arg name="subscribe_scan"          default="false"/>         <!-- Assuming 2D scan if set, rtabmap will do 3DoF mapping instead of 6DoF -->
-  <arg name="scan_topic"              default="/scan"/>
+  <arg name="scan_topic"              default="/camera/depth/points"/>
 
-  <arg name="subscribe_scan_cloud"    default="false"/>         <!-- Assuming 3D scan if set -->
-  <arg name="scan_cloud_topic"        default="/scan_cloud"/>
+  <arg name="subscribe_scan_cloud"    default="true"/>         <!-- Assuming 3D scan if set -->
+  <arg name="scan_cloud_topic"        default="/camera/depth/points"/>
 
   <arg name="visual_odometry"         default="true"/>          <!-- Generate visual odometry -->
   <arg name="odom_topic"              default="/odom"/>         <!-- Odometry topic used if visual_odometry is false -->
   <arg name="odom_frame_id"           default=""/>              <!-- If set, TF is used to get odometry instead of the topic -->
 
   <arg name="namespace"               default="rtabmap"/>
-  <arg name="wait_for_transform"      default="0.2"/>
+  <arg name="wait_for_transform"      default="0.3"/>
 
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+    <!-- <rosparam param="use_sim_time">true</rosparam>
+    <rosparam param="map_always_update">true</rosparam>
+    <rosparam param="map_cleanup">true</rosparam> -->
+
+    <!-- <param name="Grid/Sensor"           value="1"/>
+    <param name="Odom/Strategy"         type="int"    value="2"/> -->
+
+    <arg name="stereo"                  value="false"/>
+    <param name="publish_tf"            value="false"/>
+
     <arg name="rtabmapviz"              value="$(arg rtabmapviz)" />
     <arg name="rviz"                    value="$(arg rviz)" />
     <arg name="localization"            value="$(arg localization)"/>
@@ -67,7 +76,7 @@
     <arg name="namespace"               value="$(arg namespace)"/>
     <arg name="database_path"           value="$(arg database_path)"/>
     <arg name="wait_for_transform"      value="$(arg wait_for_transform)"/>
-    <arg name="rtabmap_args"            value="$(arg rtabmap_args)"/>
+    <arg name="args"                    value="$(arg args)"/>
     <arg name="launch_prefix"           value="$(arg launch_prefix)"/>
     <arg name="approx_sync"             value="$(arg approx_sync)"/>
 
@@ -85,13 +94,13 @@
     <arg name="visual_odometry"         value="$(arg visual_odometry)"/>
     <arg name="odom_topic"              value="$(arg odom_topic)"/>
     <arg name="odom_frame_id"           value="$(arg odom_frame_id)"/>
-    <arg name="odom_args"               value="$(arg rtabmap_args)"/>
+    <arg name="odom_args"               value="$(arg args)"/>
   </include>
+<!-- 
 
-  <node pkg="youbot_camera" type="map_odom_transformation" name="map_odom_transformation" args="" />
- 
+  <rosparam param="wait_for_second">5</rosparam>
 
-  <!-- <include file="$(find youbot_navigation_global)/launch/move_base_global.launch" /> -->
+  <include file="$(find youbot_navigation_global)/launch/move_base_global.launch" /> -->
 
 
 </launch>
