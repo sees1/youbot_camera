@@ -48,20 +48,7 @@
   <arg name="wait_for_transform"      default="1"/>
 
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
-    <!-- <rosparam param="use_sim_time">true</rosparam> -->
-    <!-- <rosparam param="map_always_update">true</rosparam>
-    <rosparam param="map_cleanup">true</rosparam> -->
-
-
-
-    <!-- <param name="Grid/Sensor"           type="string"    value="0"/> -->
-    <!-- <param name="Odom/Strategy"         type="int"    value="2"/> -->
-
     <arg name="stereo"                  value="false"/>
-    <param name="publish_tf"            type="bool"   value="false"/>
-    <param name="Grid/FromDepth"        type="string" value="true"/>
-    <param name="map_always_update"     type="string"   value="true"/>
-    <param name="map_cleanup"           type="string"   value="true"/>
 
     <arg name="rtabmapviz"              value="$(arg rtabmapviz)" />
     <arg name="rviz"                    value="$(arg rviz)" />
