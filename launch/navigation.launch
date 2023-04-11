@@ -1,23 +1,16 @@
 <?xml version="1.0"?>
 
 <launch>
-   <!-- <rosparam param="use_sim_time">true</rosparam> -->
-
-   <!-- <arg name="camera" value="camera" />
+   <!-- frames init -->
+   <arg name="camera" value="camera" />
    <include file="$(find youbot_camera)/launch/youbot_frames.launch">
       <arg name="camera" value="$(arg camera)"/>
    </include>
 
+   <!-- camera init -->
    <include file="$(find openni2_launch)/launch/openni2.launch">
       <arg name="depth_registration" value="true" />
-   </include> -->
-
-  <!-- Backward compatibility launch file, use rtabmap.launch instead -->
-
-  <!-- Your RGB-D sensor should be already started with "depth_registration:=true".
-        Examples:
-           $ roslaunch freenect_launch freenect.launch depth_registration:=true
-           $ roslaunch openni2_launch openni2.launch depth_registration:=true -->
+   </include>
 
   <!-- Choose visualization -->
   <arg name="rviz"                    default="true" />
@@ -56,14 +49,19 @@
 
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
     <!-- <rosparam param="use_sim_time">true</rosparam> -->
-    <rosparam param="map_always_update">true</rosparam>
-    <rosparam param="map_cleanup">true</rosparam>
+    <!-- <rosparam param="map_always_update">true</rosparam>
+    <rosparam param="map_cleanup">true</rosparam> -->
+
+
 
     <!-- <param name="Grid/Sensor"           type="string"    value="0"/> -->
     <!-- <param name="Odom/Strategy"         type="int"    value="2"/> -->
 
     <arg name="stereo"                  value="false"/>
-    <param name="publish_tf"            value="false"/>
+    <param name="publish_tf"            type="bool"   value="false"/>
+    <param name="Grid/FromDepth"        type="string" value="true"/>
+    <param name="map_always_update"     type="string"   value="true"/>
+    <param name="map_cleanup"           type="string"   value="true"/>
 
     <arg name="rtabmapviz"              value="$(arg rtabmapviz)" />
     <arg name="rviz"                    value="$(arg rviz)" />
