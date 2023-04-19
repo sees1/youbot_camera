@@ -51,7 +51,7 @@ namespace youbot_camera_suite
 
   void RT_youbot_base::read()
   {
-    ROS_INFO("cmd velocity is: LV = %d, TV = %d, AV = %d", rv.Lvelocity, rv.Tvelocity, rv.angulVelocity );
+    ROS_INFO("cmd velocity is: LV = %f, TV = %f, AV = %f", rv.Lvelocity.value(), rv.Tvelocity.value(), rv.angulVelocity.value());
   }
 
   void RT_youbot_base::update()

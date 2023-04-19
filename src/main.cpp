@@ -17,7 +17,7 @@
 using namespace youbot;
 using namespace youbot_camera_suite;
 
-#define YOUBOT_CONFIGURATIONS_DIR "/home/sees/CommLineProg/nonproProg/catkin_ws/src/kuka-youbot-driver/config/"
+#define YOUBOT_CONFIGURATIONS_DIR "/home/sees/CommLineProg/nonproProg/robotics/catkin_ws/src/kuka-youbot-driver/config/"
 
 int main(int argc, char **argv)
 {

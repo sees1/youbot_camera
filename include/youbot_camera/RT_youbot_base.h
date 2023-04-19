@@ -53,12 +53,21 @@ namespace youbot_camera_suite
 
     struct published_value
     {
-      quantity<si::length> x = 0 * meter;
-      quantity<si::length> y = 0 * meter;
-      quantity<plane_angle> phi_z = 0 * radian;
-      quantity<si::velocity> velocity_x = 0 * meter_per_second;
-      quantity<si::velocity> velocity_y = 0 * meter_per_second;
-      quantity<si::angular_velocity> omega_z = 0 * radian_per_second;  
+      published_value()
+      {
+        x = 0 * meter;
+        y = 0 * meter;
+        phi_z = 0 * radian;
+        velocity_x = 0 * meter_per_second;
+        velocity_y = 0 * meter_per_second;
+        omega_z = 0 * radian_per_second;
+      }
+      quantity<si::length> x;
+      quantity<si::length> y;
+      quantity<plane_angle> phi_z;
+      quantity<si::velocity> velocity_x;
+      quantity<si::velocity> velocity_y;
+      quantity<si::angular_velocity> omega_z;
     };
 
   private:
