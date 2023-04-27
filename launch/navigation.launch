@@ -81,7 +81,35 @@
     <arg name="odom_args"               value="$(arg args)"/>
   </include>
 
-  <include file="$(find youbot_navigation_global)/launch/move_base_global.launch" />
+   <!-- <param name="T" type="double" value="0.2"/>
+   <param name="dt" type="double" value="0.1"/>
+   <node pkg="youbot_navigation_common" type="lowpass_filter" respawn="false" name="lowpass_filter" output="screen"></node> -->
 
+   <arg name="base_frame_id"   default="base_footprint"/>
+   <arg name="global_frame_id" default="map"/>
+
+   <!-- for moving -->
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base_node" output="screen">
+         <!-- Load common configuration files -->
+   <remap from="cmd_vel" to="move_base/cmd_vel"/>
+         <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /> -->
+         <rosparam file="$(find youbot_camera)/cfg/move_base_params.yaml" command="load" />
+         <rosparam file="$(find youbot_camera)/cfg/costmap_common_params.yaml" command="load" ns="local_costmap" />
+         <rosparam file="$(find youbot_camera)/cfg/costmap_common_params.yaml" command="load" ns="global_costmap" />
+
+         <rosparam file="$(find youbot_camera)/cfg/local_costmap_params.yaml" command="load" />
+         <rosparam file="$(find youbot_camera)/cfg/dwa_local_planner_params.yaml" command="load" ns="DWAPlannerROS"/>
+
+         <rosparam file="$(find youbot_camera)/cfg/global_costmap_params.yaml" command="load"/>
+         <rosparam file="$(find youbot_camera)/cfg/global_planner_params.yaml" command="load"/>
+
+         <param name="global_costmap/global_frame" value="$(arg global_frame_id)"/>
+         <param name="global_costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+         <param name="local_costmap/global_frame"  value="$(arg odom_frame_id)"/>
+         <param name="local_costmap/robot_base_frame"  value="$(arg base_frame_id)"/>
+         <param name="DWAPlannerROS/global_frame_id"   value="$(arg odom_frame_id)"/>
+
+         <remap from="odom"      to="$(arg odom_topic)"/>
+   </node>
 
 </launch>
